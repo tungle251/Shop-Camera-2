@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Camera Store | 3TP</title>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<th:block th:replace="admin/layout/link2::link2"></th:block>
+
+</head>
+<body class="skin-blue sidebar-mini">
+	<div class="wrapper">
+		<!-- top -->
+		<th:block th:replace="admin/layout/top::top"></th:block>
+		<!-- Left side column. contains the logo and sidebar -->
+		<th:block th:replace="admin/layout/menuleft::left"></th:block>
+		<!-- Content Wrapper. Contains page content -->
+		<div id="content">
+			<div id="content">
+				<div class="content-wrapper" style="min-height: 531px;">
+					<!-- Content Header (Page header) -->
+
+					<section class="content-header">
+						<div class="page-header">
+							<div class="container-fluid">
+								<div class="pull-right">
+									<a onclick="printhd()" target="_blank" title=""
+										class="btn btn-info" data-original-title="In hóa đơn"> <i
+										class="fa fa-print"></i>
+									</a> <a th:href="@{'/admin/suadonhang/' + ${order.id}}"
+										data-toggle="tooltip" title="" class="btn btn-primary"
+										data-original-title="Sửa"> <i class="fa fa-pencil"></i>
+									</a> <a href="" data-toggle="tooltip" title=""
+										class="btn btn-default" data-original-title="Trở về"> <i
+										class="fa fa-reply"></i>
+									</a>
+								</div>
+								<h1>Đơn hàng</h1>
+								<ul class="breadcrumb">
+									<li><a href="">Trang chủ</a></li>
+									<li><a href="">Đơn hàng</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">
+												<i class="fa fa-shopping-cart"></i> Chi tiết đơn hàng
+											</h3>
+										</div>
+										<table class="table">
+											<tbody>
+												<tr>
+													<td style="width: 1%;">
+														<button data-toggle="tooltip" title=""
+															class="btn btn-info btn-xs" data-original-title="Store">
+															<i class="fa fa-shopping-cart fa-fw"></i>
+														</button>
+													</td>
+													<td><a href="http://localhost:81/opencart/"
+														target="_blank">T &amp; T Camera</a></td>
+												</tr>
+												<tr>
+													<td>
+														<button data-toggle="tooltip" title=""
+															class="btn btn-info btn-xs"
+															data-original-title="Ngày thêm:">
+															<i class="fa fa-calendar fa-fw"></i>
+														</button>
+													</td>
+													<td>2017-12-08 15:37:32</td>
+												</tr>
+												<tr>
+													<td><button data-toggle="tooltip" title=""
+															class="btn btn-info btn-xs"
+															data-original-title="Phương thức thanh toán:">
+															<i class="fa fa-credit-card fa-fw"></i>
+														</button></td>
+													<td>Cash On Delivery</td>
+												</tr>
+												<tr>
+													<td><button data-toggle="tooltip" title=""
+															class="btn btn-info btn-xs"
+															data-original-title="Phương thức vận chuyển:">
+															<i class="fa fa-truck fa-fw"></i>
+														</button></td>
+													<td>Flat Shipping Rate</td>
+												</tr>
+											</tbody>
+
+										</table>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">
+												<i class="fa fa-user"></i> Thông tin khách hàng
+											</h3>
+										</div>
+										<table class="table">
+											<tbody>
+												<tr>
+													<td style="width: 1%;"><button data-toggle="tooltip"
+															title="" class="btn btn-info btn-xs"
+															data-original-title="Khách hàng:">
+															<i class="fa fa-user fa-fw"></i>
+														</button></td>
+													<td th:text="${user.name}"></td>
+												</tr>
+												<tr>
+													<td><button data-toggle="tooltip" title=""
+															class="btn btn-info btn-xs"
+															data-original-title="Nhóm khách hàng:">
+															<i class="fa fa-group fa-fw"></i>
+														</button></td>
+													<td>Default</td>
+												</tr>
+												<tr>
+													<td><button data-toggle="tooltip" title=""
+															class="btn btn-info btn-xs" data-original-title="Email:">
+															<i class="fa fa-envelope-o fa-fw"></i>
+														</button></td>
+													<td><a th:text="${user.email}"></a></td>
+												</tr>
+												<tr>
+													<td><button data-toggle="tooltip" title=""
+															class="btn btn-info btn-xs"
+															data-original-title="Số điện thoại:">
+															<i class="fa fa-phone fa-fw"></i>
+														</button></td>
+													<td th:text="${user.phone_number}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">
+												<i class="fa fa-cog"></i> Tùy chọn
+											</h3>
+										</div>
+										<table class="table">
+											<tbody>
+												<tr>
+													<td>Mã hoá đơn</td>
+													<td id="invoice" class="text-right"
+														th:text="${order.codeOrder}"></td>
+													<td style="width: 1%;" class="text-center">
+														<button disabled="disabled" class="btn btn-success btn-xs">
+															<i class="fa fa-refresh"></i>
+														</button>
+													</td>
+												</tr>
+												<tr>
+													<td>Tiến trình:</td>
+													<td class="text-right" th:text="${process.process}"></td>
+
+													<td class="text-center">
+														<button disabled="disabled" class="btn btn-success btn-xs">
+															<i class="fa fa-plus-circle"></i>
+														</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<i class="fa fa-info-circle"></i> Chi tiết đơn hàng
+									</h3>
+								</div>
+								<div class="panel-body">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<td style="width: 50%;" class="text-left">Địa chỉ thanh
+													toán</td>
+												<td style="width: 50%;" class="text-left">Địa chỉ giao
+													hàng</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="text-left"></td>
+												<td class="text-left">Gò dưa, Hà nội</td>
+											</tr>
+										</tbody>
+									</table>
+									<table class="table table-bordered">
+
+										<thead>
+											<tr>
+												<td class="text-left">Mã sản phẩm</td>
+												<td class="text-left">Tên sản phẩm</td>
+												<td class="text-right">Ảnh SP</td>
+												<td class="text-right">Số lượng</td>
+												<td class="text-right">Đơn vị giá</td>
+												<td class="text-right">Tổng cộng</td>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- <tr th:each="listProduct : ${listProduct}">
+												<td class="text-left" th:text="${listProduct.id}"><a
+													href="">SP23</a></td>
+												<td class="text-left" th:text="${listProduct.name}"></td>
+												<td class="text-left" style="text-align: center"><img
+													style="width: 50px; height: 50px"
+													th:src="@{'/public/images/san-pham/' +${listProduct.img}}"></td>
+												<td class="text-right" ></td>
+												<td class="text-right" th:text="${listProduct.price}"></td>
+												<td class="text-right"
+													>đ</td>
+											</tr> -->
+											<tr th:each="list : ${list}">
+												<td class="text-left" th:text="${list[2]}"><a href="">SP23</a></td>
+												<td class="text-left"
+													th:text="${productRepoImpl.getProduct(list[2]).name}"></td>
+												<td class="text-left" style="text-align: center"><img
+													style="width: 50px; height: 50px"
+													th:src="@{'/public/images/san-pham/' + ${productRepoImpl.getProduct(list[2]).img}}"></td>
+												<td class="text-right" th:text="${list[3]}"></td>
+												<td class="text-right"
+													th:text="${#numbers.formatDecimal(productRepoImpl.getProduct(list[2]).price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+												<td class="text-right"
+													th:text="${#numbers.formatDecimal(productRepoImpl.getProduct(list[2]).price*list[3], 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+											</tr>
+											<tr>
+												<td colspan="5" class="text-right text-bold">Sub-Total</td>
+												<td class="text-right text-bold"
+													th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+												</td>
+											</tr>
+										</tbody>
+
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</section>
+
+				</div>
+				<!-- /.content-wrapper -->
+
+			</div>
+			<!-- /.content-wrapper -->
+		</div>
+		<!--bottom-->
+		<th:block th:replace="admin/layout/bottom::bottom"></th:block>
+		<div class="control-sidebar-bg"></div>
+	</div>
+	<!-- ./wrapper -->
+</body>
+</html>

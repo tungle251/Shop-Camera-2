@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Camera Store | 3TP</title>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<th:block th:replace="admin/layout/link2::link2"></th:block>
+
+</head>
+<body class="skin-blue sidebar-mini">
+	<div class="wrapper">
+		<!-- top -->
+		<th:block th:replace="admin/layout/top::top"></th:block>
+		<!-- Left side column. contains the logo and sidebar -->
+		<th:block th:replace="admin/layout/menuleft::left"></th:block>
+		<!-- Content Wrapper. Contains page content -->
+		<div id="content">
+			<div id="content">
+				<div class="content-wrapper" style="min-height: 546px;">
+					<!-- Content Header (Page header) -->
+					<section class="content-header">
+						<div class="page-header">
+							<div class="container-fluid">
+								<div class="pull-right">
+									<a
+										href="http://localhost:81/opencart/admin/index.php?route=sale/order&amp;user_token=LRLhUr6HXulMIMPm8PxCIoxiwTLSHiq5"
+										class="btn btn-default"><i class="fa fa-reply"></i> Trở về</a>
+								</div>
+								<h1>Đơn hàng</h1>
+								<ul class="breadcrumb">
+									<li><a href="">Trang chủ</a></li>
+									<li><a href="">Đơn hàng</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="container-fluid">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<i class="fa fa-pencil"></i> Chỉnh sửa đơn hàng
+									</h3>
+								</div>
+								<div class="panel-body">
+									<form class="form-horizontal"
+										th:action="@{'/admin/suadonhang2/' + ${order.id}}"
+										method="post">
+										<input type="hidden" name="_token"
+											value="ydtIWFLTjNj1DU9zVRZr9HtcqTWmBscTOhY5pNWr">
+										<ul id="order" class="nav nav-tabs nav-justified">
+											<li class="active"><a href="#tab-customer"
+												data-toggle="tab" aria-expanded="true">1. Thông tin
+													khách hàng</a></li>
+											<li class=""><a href="#tab-cart" data-toggle="tab"
+												aria-expanded="false">2. Sản phẩm</a></li>
+											<li class=""><a href="#tab-payment" data-toggle="tab"
+												aria-expanded="false">3. Chi tiết thanh toán</a></li>
+
+											<li class=""><a href="#tab-total" data-toggle="tab"
+												aria-expanded="false">4. Tổng cộng</a></li>
+										</ul>
+										<div class="tab-content">
+											<div class="tab-pane active" id="tab-customer">
+												<div class="form-group required">
+													<label class="col-sm-2 control-label" for="input-firstname">Tên</label>
+													<div class="col-sm-10">
+														<input type="text" name="firstname" readonly=""
+															th:value="${user.name}" id="input-firstname"
+															class="form-control">
+													</div>
+												</div>
+												<div class="form-group required">
+													<label class="col-sm-2 control-label" for="input-lastname">Họ</label>
+													<div class="col-sm-10">
+														<input type="text" name="lastname" readonly=""
+															th:value="${user.name}" id="input-lastname"
+															class="form-control">
+													</div>
+												</div>
+												<div class="form-group required">
+													<label class="col-sm-2 control-label" for="input-email">Email</label>
+													<div class="col-sm-10">
+														<input type="text" name="email" readonly=""
+															th:value="${user.email}" id="input-email"
+															class="form-control">
+													</div>
+												</div>
+												<div class="form-group required">
+													<label class="col-sm-2 control-label" for="input-telephone">Số
+														điện thoại</label>
+													<div class="col-sm-10">
+														<input type="text" name="telephone" readonly=""
+															th:value="${user.phone_number}" id="input-telephone"
+															class="form-control">
+													</div>
+												</div>
+												<div class="text-right">
+													<button type="button" id="button-customer"
+														data-loading-text="Đang tải..." class="btn btn-primary">
+														<i class="fa fa-arrow-right"></i> Tiếp tục
+													</button>
+												</div>
+											</div>
+											<div class="tab-pane" id="tab-cart">
+												<div class="table-responsive">
+													<table class="table table-bordered">
+														<thead>
+															<tr>
+																<td class="text-left">Sản phẩm</td>
+																<td class="text-left">Mẫu</td>
+																<td class="text-right">Số lượng</td>
+																<td class="text-right">Đơn vị giá</td>
+																<td class="text-right">Tổng cộng</td>
+															</tr>
+														</thead>
+														<tbody id="cart">
+															<tr th:each="list : ${list}">
+																<td class="text-left"
+																	th:text="${productRepoImpl.getProduct(list[2]).name}"><br>
+																	<input type="hidden" name="" value="47"></td>
+																<td class="text-left" th:text="${list[2]}"></td>
+																<td class="text-right" th:text="${list[3]}"><input
+																	type="hidden" name="product[0][quantity]" value="1"></td>
+																<td class="text-right"
+																	th:text="${#numbers.formatDecimal(productRepoImpl.getProduct(list[2]).price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+																<td class="text-right"
+																	th:text="${#numbers.formatDecimal(productRepoImpl.getProduct(list[2]).price*list[3], 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+															</tr>
+
+														</tbody>
+														<tr>
+															<td colspan="4" class="text-right text-bold">Sub-Total</td>
+															<td class="text-right text-bold"
+																th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+															</td>
+														</tr>
+													</table>
+												</div>
+
+												<br>
+												<div class="row">
+													<div class="col-sm-6 text-left">
+														<button type="button"
+															onclick="$('a[href=\'#tab-customer\']').tab('show');"
+															class="btn btn-default">
+															<i class="fa fa-arrow-left"></i> Trở lại
+														</button>
+													</div>
+													<div class="col-sm-6 text-right">
+														<button type="button" id="button-cart"
+															class="btn btn-primary">
+															<i class="fa fa-arrow-right"></i> Tiếp tục
+														</button>
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane" id="tab-payment">
+
+												<div class="form-group required">
+													<label class="col-sm-2 control-label"
+														for="input-payment-firstname">Tên</label>
+													<div class="col-sm-10">
+														<input type="text" name="firstname" readonly=""
+															th:value="${user.name}" id="input-payment-firstname"
+															class="form-control">
+													</div>
+												</div>
+												<div class="form-group required">
+													<label class="col-sm-2 control-label"
+														for="input-payment-lastname">Họ</label>
+													<div class="col-sm-10">
+														<input type="text" name="lastname" readonly=""
+															th:value="${user.name}" id="input-payment-lastname"
+															class="form-control">
+													</div>
+												</div>
+
+												<div class="form-group required">
+													<label class="col-sm-2 control-label"
+														for="input-payment-address-1">Địa chỉ 1</label>
+													<div class="col-sm-10">
+														<input type="text" name="address_1" readonly=""
+															th:value="${user.address}" id="input-payment-address-1"
+															class="form-control">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label"
+														for="input-payment-address-2">Địa chỉ 2</label>
+													<div class="col-sm-10">
+														<input type="text" name="address_2" readonly=""
+															th:value="${user.address}" id="input-payment-address-2"
+															class="form-control">
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-sm-6 text-left">
+														<button type="button"
+															onclick="$('a[href=\'#tab-cart\']').tab('show');"
+															class="btn btn-default">
+															<i class="fa fa-arrow-left"></i> Trở lại
+														</button>
+													</div>
+													<div class="col-sm-6 text-right">
+														<button type="button" id="button-payment-address"
+															data-loading-text="Đang tải..." class="btn btn-primary">
+															<i class="fa fa-arrow-right"></i> Tiếp tục
+														</button>
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane" id="tab-total">
+
+												<fieldset>
+													<legend>Chi tiết đơn hàng</legend>
+
+													<div class="form-group">
+														<label class="col-sm-2 control-label"
+															for="input-order-status">Tình trạng đơn hàng</label>
+														<div class="col-sm-10">
+															<select name="process" id="input-order-status"
+																class="form-control">
+																<th:block th:each="listProcess : ${listProcess}">
+																	<option th:value="${listProcess.id}"
+																		th:text="${listProcess.process}"></option>
+																</th:block>
+															</select> <input type="hidden" name="order_id" value="1">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-2 control-label"
+															for="input-order-status">Trạng thái</label>
+														<div class="col-sm-10">
+															<select name="active" id="input-order-status"
+																class="form-control">
+																<th:block th:if="${order.active == 0}">
+																	<option value="1" selected="">Kích hoạt</option>
+																	<option value="0">Chưa kích hoạt</option>
+																</th:block>
+																<th:block th:if="${order.active == 1}">
+																	<option value="1">Kích hoạt</option>
+																	<option value="0" selected="">Chưa kích hoạt</option>
+																</th:block>
+															</select> <input type="hidden" name="order_id" value="1">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-2 control-label" for="input-coupon">Mã
+															đơn hàng</label>
+														<div class="col-sm-10">
+															<div class="input-group">
+																<input type="text" readonly="" name="code_order"
+																	th:value="${order.codeOrder}" id="input-coupon"
+																	class="form-control">
+															</div>
+														</div>
+													</div>
+
+													<div class="form-group">
+														<label class="col-sm-2 control-label" for="input-reward">Thưởng</label>
+														<div class="col-sm-10">
+															<div class="input-group">
+																<input type="text" name="reward" value=""
+																	id="input-reward" data-loading-text="Đang tải..."
+																	class="form-control"> <span
+																	class="input-group-btn">
+																	<button type="button" id="button-reward"
+																		data-loading-text="Đang tải..."
+																		class="btn btn-primary"></button>
+																</span>
+															</div>
+														</div>
+													</div>
+
+
+												</fieldset>
+												<div class="row">
+													<div class="col-sm-6 text-left">
+														<button type="button"
+															onclick="$('select[name=\'shipping_method\']').prop('disabled') ? $('a[href=\'#tab-payment\']').tab('show') : $('a[href=\'#tab-shipping\']').tab('show');"
+															class="btn btn-default">
+															<i class="fa fa-arrow-left"></i> Trở lại
+														</button>
+													</div>
+													<div class="col-sm-6 text-right">
+														<button type="button" id="button-refresh"
+															data-toggle="tooltip" title=""
+															data-loading-text="Đang tải..." class="btn btn-warning"
+															data-original-title="Cập nhật mới">
+															<i class="fa fa-refresh"></i>
+														</button>
+														<button type="submit" id="button-save"
+															class="btn btn-primary">
+															<i class="fa fa-check-circle"></i> Lưu
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+
+			</div>
+			<!-- /.content-wrapper -->
+		</div>
+		<!--bottom-->
+		<th:block th:replace="admin/layout/bottom::bottom"></th:block>
+		<div class="control-sidebar-bg"></div>
+	</div>
+	<!-- ./wrapper -->
+</body>
+</html>

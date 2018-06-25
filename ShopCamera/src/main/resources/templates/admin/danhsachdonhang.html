@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Camera Store | 3TP</title>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<th:block th:replace="admin/layout/link2::link2"></th:block>
+
+</head>
+<body class="skin-blue sidebar-mini">
+	<div class="wrapper">
+		<!-- top -->
+		<th:block th:replace="admin/layout/top::top"></th:block>
+		<!-- Left side column. contains the logo and sidebar -->
+		<th:block th:replace="admin/layout/menuleft::left"></th:block>
+		<!-- Content Wrapper. Contains page content -->
+		<div id="content">
+			<div id="content">
+				<div class="content-wrapper" style="min-height: 531px;">
+					<!-- Content Header (Page header) -->
+
+					<!-- Main content -->
+					<div id="content">
+						<div class="page-header">
+							<div class="container-fluid">
+								<div class="pull-right">
+									<button type="button" data-toggle="tooltip" title=""
+										onclick="$('#filter-product').toggleClass('hidden-sm hidden-xs');"
+										class="btn btn-default hidden-md hidden-lg"
+										data-original-title="Lọc">
+										<i class="fa fa-filter"></i>
+									</button>
+									<a href="" data-toggle="tooltip" title=""
+										class="btn btn-primary" data-original-title="Thêm"><i
+										class="fa fa-plus"></i></a>
+									<button type="submit" form="form-product"
+										formaction="http://localhost/opencart/admin/index.php?route=catalog/product/copy&amp;user_token=R94rZ1nsVBrQ2iH5qTwXVAs0dr0LuFak"
+										data-toggle="tooltip" title="" class="btn btn-default"
+										data-original-title="Sao chép">
+										<i class="fa fa-copy"></i>
+									</button>
+									<button type="button" form="form-product"
+										formaction="http://localhost/opencart/admin/index.php?route=catalog/product/delete&amp;user_token=R94rZ1nsVBrQ2iH5qTwXVAs0dr0LuFak"
+										data-toggle="tooltip" title="" class="btn btn-danger"
+										onclick="confirm('Xóa/gỡ cài đặt không thể hoàn tác! Bạn có chắc bạn muốn làm điều này?') ? $('#form-product').submit() : false;"
+										data-original-title="Xoá">
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</div>
+								<h1>Quản lý đơn hàng</h1>
+								<ul class="breadcrumb">
+									<li><a
+										href="http://localhost/opencart/admin/index.php?route=common/dashboard&amp;user_token=R94rZ1nsVBrQ2iH5qTwXVAs0dr0LuFak">Trang
+											chủ</a></li>
+									<li><a
+										href="http://localhost/opencart/admin/index.php?route=catalog/product&amp;user_token=R94rZ1nsVBrQ2iH5qTwXVAs0dr0LuFak">Quản
+											lý Đơn hàng </a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="container-fluid">
+							<div class="row">
+								<div id="filter-product"
+									class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">
+												<i class="fa fa-filter"></i> Bộ lọc
+											</h3>
+										</div>
+										<div class="panel-body">
+											<div class="form-group">
+												<label class="control-label" for="input-name">Tên
+													đơn hàng</label> <input type="text" name="filter_name" value=""
+													placeholder="Tên sản phẩm" id="input-name"
+													class="form-control" autocomplete="off">
+												<ul class="dropdown-menu"></ul>
+											</div>
+											<div class="form-group">
+												<label class="control-label" for="input-model">Mã
+													sản phẩm</label> <input type="text" name="filter_model" value=""
+													placeholder="Mã sản phẩm" id="input-model"
+													class="form-control" autocomplete="off">
+												<ul class="dropdown-menu"></ul>
+											</div>
+											<div class="form-group">
+												<label class="control-label" for="input-price">Giá</label> <input
+													type="text" name="filter_price" value="" placeholder="Giá"
+													id="input-price" class="form-control">
+											</div>
+											<div class="form-group">
+												<label class="control-label" for="input-quantity">Số
+													lượng</label> <input type="text" name="filter_quantity" value=""
+													placeholder="Số lượng" id="input-quantity"
+													class="form-control">
+											</div>
+											<div class="form-group">
+												<label class="control-label" for="input-status">Trạng
+													thái</label> <select name="filter_status" id="input-status"
+													class="form-control">
+													<option value=""></option>
+													<option value="1">Kích hoạt</option>
+													<option value="0">Vô hiệu hóa</option>
+												</select>
+											</div>
+
+											<div class="form-group text-right">
+												<button type="button" id="button-filter"
+													class="btn btn-default">
+													<i class="fa fa-filter"></i> Lọc
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-9 col-md-pull-3 col-sm-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">
+												<i class="fa fa-list"></i> Danh sách đơn hàng
+											</h3>
+										</div>
+										<div class="panel-body">
+											<form
+												action="http://localhost/opencart/admin/index.php?route=catalog/product/delete&amp;user_token=R94rZ1nsVBrQ2iH5qTwXVAs0dr0LuFak"
+												method="post" enctype="multipart/form-data"
+												id="form-product">
+												<div class="table-responsive">
+													<table class="table table-bordered table-hover">
+														<thead>
+															<tr>
+																<td style="width: 1px;" class="text-center"><input
+																	type="checkbox"
+																	onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></td>
+																<td class="text-right"><a
+																	href="http://localhost:81/opencart/admin/index.php?route=sale/order&amp;user_token=lpNDo2YYaWJZcGIfdBXdeLtxkLOyo2qs&amp;sort=o.order_id&amp;order=ASC"
+																	class="desc">ID đơn hàng</a></td>
+																<td class="text-left"><a href="">Khách hàng</a></td>
+																<td class="text-right"><a href="">Số điện thoại</a></td>
+																<td class="text-left"><a href="">Trạng thái</a></td>
+																<td class="text-right"><a href="">Tổng cộng</a></td>
+																</td>
+																<td class="text-right">Tác vụ</td>
+															</tr>
+														</thead>
+														<tbody>
+															<tr th:each="listOrder : ${listOrder}">
+																<td class="text-center"><input type="checkbox"
+																	name="selected[]" value="1"> <input
+																	type="hidden" name="shipping_code[]" value="flat.flat"></td>
+																<td class="text-right" th:text="${listOrder.id}"></td>
+																<td class="text-left"
+																	th:text="${listOrder.nameCustomer}"></td>
+																<td class="text-left" th:text="${listOrder.phoneNumber}"></td>
+																<td class="text-left"
+																	th:text="${listOrder.active == 0 ? 'Kích hoạt' : 'Không kích hoạt'}">Kích
+																	hoạt</td>
+																<td class="text-right" th:text="${listOrder.total}"></td>
+																<td class="text-right">
+																	<div style="min-width: 120px;">
+																		<div class="btn-group">
+																			<a
+																				th:href="@{'/admin/chitietdonhang/' + ${listOrder.id}}"
+																				data-toggle="tooltip" title=""
+																				class="btn btn-primary" data-original-title="Xem"><i
+																				class="fa fa-eye"></i></a>
+																			<button type="button" data-toggle="dropdown"
+																				class="btn btn-primary dropdown-toggle">
+																				<span class="caret"></span>
+																			</button>
+																			<ul class="dropdown-menu dropdown-menu-right">
+																				<li><a href=""><i class="fa fa-pencil"></i>
+																						Sửa</a></li>
+																				<li><a href="1"><i class="fa fa-trash-o"></i>
+																						Xoá</a></li>
+																			</ul>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</form>
+											<div class="row"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<!-- /.content-wrapper -->
+
+			</div>
+			<!-- /.content-wrapper -->
+		</div>
+		<!--bottom-->
+		<th:block th:replace="admin/layout/bottom::bottom"></th:block>
+		<div class="control-sidebar-bg"></div>
+	</div>
+	<!-- ./wrapper -->
+</body>
+</html>
