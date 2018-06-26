@@ -11,71 +11,74 @@ import javax.persistence.Table;
 @Table(name = "order_detail2")
 public class OrderDetail {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
-	@Column(name = "id_order")
-	private int idOder;
-	@Column(name = "id_product")
-	private int idProduct;
-	@Column(name = "quatity")
-	private int quatity;
-	@Column(name = "unit_price")
-	private int unitPrice;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    @Column(name = "id_order")
+    private int idOder;
+    @Column(name = "id_product")
+    private int idProduct;
+    @Column(name = "quatity")
+    private int quatity;
+    @Column(name = "unit_price")
+    private int unitPrice;
 
-	public OrderDetail(int idOder, int idProduct, int quatity, int unitPrice) {
-		super();
-		this.idOder = idOder;
-		this.idProduct = idProduct;
-		this.quatity = quatity;
-		this.unitPrice = unitPrice;
-	}
+    public OrderDetail() {
+    }
 
-	public int getId() {
-		return id;
-	}
+    public OrderDetail(int idOder, int idProduct, int quatity, int unitPrice) {
+        super();
+        this.idOder = idOder;
+        this.idProduct = idProduct;
+        this.quatity = quatity;
+        this.unitPrice = unitPrice;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getIdOder() {
-		return idOder;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setIdOder(int idOder) {
-		this.idOder = idOder;
-	}
+    public int getIdOder() {
+        return idOder;
+    }
 
-	public int getIdProduct() {
-		return idProduct;
-	}
+    public void setIdOder(int idOder) {
+        this.idOder = idOder;
+    }
 
-	public void setIdProduct(int idProduct) {
-		this.idProduct = idProduct;
-	}
+    public int getIdProduct() {
+        return idProduct;
+    }
 
-	public int getQuatity() {
-		return quatity;
-	}
+    public void setIdProduct(int idProduct) {
+        this.idProduct = idProduct;
+    }
 
-	public void setQuatity(int quatity) {
-		this.quatity = quatity;
-	}
+    public int getQuatity() {
+        return quatity;
+    }
 
-	public int getUnitPrice() {
-		return unitPrice;
-	}
+    public void setQuatity(int quatity) {
+        this.quatity = quatity;
+    }
 
-	public void setUnitPrice(int unitPrice) {
-		this.unitPrice = unitPrice;
-	}
+    public int getUnitPrice() {
+        return unitPrice;
+    }
 
-	@Override
-	public String toString() {
-		return "OrderDetail [id=" + id + ", idOder=" + idOder + ", idProduct=" + idProduct + ", quatity=" + quatity
-				+ ", unitPrice=" + unitPrice + "]";
-	}
+    public void setUnitPrice(int unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail [id=" + id + ", idOder=" + idOder + ", idProduct=" + idProduct + ", quatity=" + quatity
+                + ", unitPrice=" + unitPrice + "]";
+    }
 
 }
