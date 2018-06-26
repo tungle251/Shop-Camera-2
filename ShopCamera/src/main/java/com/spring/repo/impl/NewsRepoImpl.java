@@ -1,6 +1,7 @@
 package com.spring.repo.impl;
 
 import com.spring.domain.News;
+import com.spring.domain.NewsDescription;
 import com.spring.domain.Product;
 import com.spring.repo.NewsRepo;
 import org.hibernate.Session;
@@ -46,5 +47,11 @@ public class NewsRepoImpl implements NewsRepo {
             list.add(productRepo.getProduct(i));
         }
         return list;
+    }
+
+    public NewsDescription findNewsDescriptionById(int id) {
+        Session session = this.sessionFactory.openSession();
+        NewsDescription newsDescription = session.get(NewsDescription.class, id);
+        return newsDescription;
     }
 }

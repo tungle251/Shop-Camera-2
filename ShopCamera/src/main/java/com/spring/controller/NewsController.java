@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import com.spring.domain.News;
+import com.spring.domain.NewsDescription;
 import com.spring.domain.Product;
 import com.spring.repo.impl.NewsRepoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.unbescape.html.HtmlEscape;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -56,6 +58,17 @@ public class NewsController {
         model.addAttribute("randomNews", newsRepo.randomNews());
         model.addAttribute("randomProducts", newsRepo.randomProducts());
         return "tin-tuc";
+    }
+
+    @RequestMapping("/tin-tuc/{id}")
+    public String content(Model model, @PathVariable(value = "id") int id) {
+
+        NewsDescription newsDescription = newsRepo.findNewsDescriptionById(id);
+        model.addAttribute("description", HtmlEscape.unescapeHtml(newsDescription.getContent()));
+        model.addAttribute("randomNews", newsRepo.randomNews());
+        model.addAttribute("randomProducts", newsRepo.randomProducts());
+        model.addAttribute("title", newsRepo.getNews(id).getTitle());
+        return "tin-tuc-chi-tiet";
     }
 
 }

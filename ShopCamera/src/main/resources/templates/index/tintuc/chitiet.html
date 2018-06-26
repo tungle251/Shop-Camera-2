@@ -1,0 +1,242 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="chitiet">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 pad-btm">
+                <div class="row">
+                    <div class="col-xs-12 col-md-9">
+                        <div class="article_header my-breadcrumb">
+                            <ol class="breadcrumb">
+                                <li><a href="http://localhost/a/CameraGiamSat">Trang chủ</a></li>
+                                <li><a href="http://localhost/a/CameraGiamSat/tin-tuc">Tin camera</a></li>
+                            </ol>
+                        </div>
+                        <div class="clear"></div>
+                        <div style="padding:10px;background:#fff;border:1px solid #eee;border-radius:3px;">
+                            <h1 class="header2" th:text="${title}">
+                            </h1>
+                            <div class="news-view">
+                                <div class="row">
+                                    <div class="col-xs-12">Lượt xem: 5</div>
+                                    <div class="col-xs-12">
+                                        <div class="social-likes social-likes_visible"
+                                             data-url="http://fptcamera.vn/tin-tuc/cach-tat-camera">
+                                            <div class="social-likes__widget social-likes__widget_facebook"
+                                                 title="Share link on Facebook"><span
+                                                    class="social-likes__button social-likes__button_facebook"><span
+                                                    class="social-likes__icon social-likes__icon_facebook"></span>Facebook</span><span
+                                                    class="social-likes__counter social-likes__counter_facebook social-likes__counter_empty"></span>
+                                            </div>
+                                            <div class="social-likes__widget social-likes__widget_twitter"
+                                                 title="Share link on Twitter"><span
+                                                    class="social-likes__button social-likes__button_twitter"><span
+                                                    class="social-likes__icon social-likes__icon_twitter"></span>Twitter</span><span
+                                                    class="social-likes__counter social-likes__counter_twitter social-likes__counter_empty"></span>
+                                            </div>
+                                            <div class="social-likes__widget social-likes__widget_plusone"
+                                                 title="Share link on Google+"><span
+                                                    class="social-likes__button social-likes__button_plusone"><span
+                                                    class="social-likes__icon social-likes__icon_plusone"></span>Google+</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+
+                            <th:block th:utext="${description}"></th:block>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="header">
+                            <span>Tin tức khác</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3">
+                                <div class="thumbnail news" style="height: 92px;">
+                                    <a href="http://fptcamera.vn/tin-tuc/cach-tat-camera"><img title="cách tắt camera"
+                                                                                               alt="Cách tắt camera trong nhà và phòng chống"
+                                                                                               src="http://fptcamera.vn/resources/uploads/images/automatic/tin-tuc/trom-tat-camera-giam-sat.jpg"></a>
+                                    <div class="caption">
+                                        <a class="news_title" href="http://fptcamera.vn/tin-tuc/cach-tat-camera">cách
+                                            tắt camera</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="thumbnail news" style="height: 92px;">
+                                    <a href="http://fptcamera.vn/tin-tuc/camera-quan-sat-khi-mat-dien"><img
+                                            title="camera quan sat khi mat dien" alt="camera quan sat khi mat dien"
+                                            src="http://fptcamera.vn/resources/uploads/images/automatic/tin-tuc/camera-bi-tat-dien.jpg"></a>
+                                    <div class="caption">
+                                        <a class="news_title"
+                                           href="http://fptcamera.vn/tin-tuc/camera-quan-sat-khi-mat-dien">camera quan
+                                            sat khi mat dien</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="thumbnail news" style="height: 92px;">
+                                    <a href="http://fptcamera.vn/tin-tuc/lay-du-lieu-tu-o-cung-camera"><img
+                                            title="lấy dữ liệu từ ổ cứng camera" alt="lấy dữ liệu từ ổ cứng camera"
+                                            src="http://fptcamera.vn/resources/uploads/images/automatic/tin-tuc/lam-sao-de-lay-du-lieu-tu-o-ung-camera.jpg"></a>
+                                    <div class="caption">
+                                        <a class="news_title"
+                                           href="http://fptcamera.vn/tin-tuc/lay-du-lieu-tu-o-cung-camera">lấy dữ liệu
+                                            từ ổ cứng camera</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="thumbnail news" style="height: 92px;">
+                                    <a href="http://fptcamera.vn/tin-tuc/-lam-sao-de-biet-camera-dang-hoat-dong"><img
+                                            title="​lam sao de biet camera dang hoat dong"
+                                            alt="​lam sao de biet camera dang hoat dong"
+                                            src="http://fptcamera.vn/resources/uploads/images/automatic/tin-tuc/cach-nhan-biet-camera-co-hoat-dong-khong.jpg"></a>
+                                    <div class="caption">
+                                        <a class="news_title"
+                                           href="http://fptcamera.vn/tin-tuc/-lam-sao-de-biet-camera-dang-hoat-dong">​lam
+                                            sao de biet camera dang hoat dong</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 hidden-xs hidden-sm">
+                        <div class="header" style="margin-top:0;">
+                            <span>Danh mục tin tức</span>
+                        </div>
+                        <div class="body">
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/gioi-thieu">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Giới thiệu</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/chinh-sach">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Chính sách</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/tuyen-dung">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Tuyển dụng</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/khuyen-mai-lap-camera">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Khuyến mại lắp
+                                            camera</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/thi-cong-lap-camera">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Thi công lắp
+                                            camera</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/ho-tro-khach-hang">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Hỗ trợ khách
+                                            hàng</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/sua-chua-camera-va-dau-ghi">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Sửa chữa camera
+                                            và đầu ghi</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/xem-demo-camera">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Xem Demo camera
+                                        </h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/tin-camera">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Tin camera</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media news longer">
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/lap-dat-camera-tai-ha-noi">
+                                        <h4 class="media-heading longer"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>Lắp đặt camera
+                                            tại Hà Nội</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header">
+                            <span>Tin tức mới</span>
+                        </div>
+                        <div class="body">
+                            <div class="media news longer" th:each="randomNews : ${randomNews}">
+                                <div class="media-left">
+                                    <a href="http://fptcamera.vn/tin-tuc/cach-tat-camera">
+                                        <img class="media-object" alt="Cách tắt camera trong nhà và phòng chống"
+                                             th:src="@{'/public/images/tin-tuc/' + ${randomNews.img}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a href="http://fptcamera.vn/tin-tuc/cach-tat-camera">
+                                        <h4 class="media-heading longer" th:text="${randomNews.title}"><i
+                                                class="fa fa-angle-right hidden-lg hidden-md">&nbsp;</i>
+                                        </h4>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="clear"></div>
+                            <div class="header">
+                                <span>Sản phẩm bán chạy</span>
+                            </div>
+                            <div class="body">
+                                <div class="media products" th:each="randomProducts : ${randomProducts}">
+                                    <div class="media-left">
+                                        <a href="http://fptcamera.vn/camera-ip-wifi-khong-day-vantech-vt-6300a">
+                                            <img class="media-object" alt="Camera IP Wifi Không Dây VANTECH VT-6300A"
+                                                 th:src="@{'/public/images/san-pham/' + ${randomProducts.img}}">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="http://fptcamera.vn/camera-ip-wifi-khong-day-vantech-vt-6300a">
+                                            <h4 class="media-heading" th:text="${randomProducts.name}"></h4>
+                                        </a>
+                                        <span class="media-price"
+                                              th:text="${#numbers.formatDecimal(randomProducts.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</th:block>
