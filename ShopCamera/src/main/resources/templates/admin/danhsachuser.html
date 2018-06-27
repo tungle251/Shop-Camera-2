@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Camera Store | 3TP</title>
+    <meta
+            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+            name="viewport">
+    <th:block th:replace="admin/layout/link2::link2"></th:block>
+
+</head>
+<body class="skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- top -->
+    <th:block th:replace="admin/layout/top::top"></th:block>
+    <!-- Left side column. contains the logo and sidebar -->
+    <th:block th:replace="admin/layout/menuleft::left"></th:block>
+    <!-- Content Wrapper. Contains page content -->
+    <div id="content">
+        <div class="content-wrapper" style="min-height: 846px;">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Quản lí thành viên
+
+                </h1>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i>Trang chủ</li>
+                            <li>Tài khoản</li>
+
+                        </ol>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger">
+
+                        Bạn chưa nhập Email<br>
+                        Bạn chưa nhập mật khẩu<br>
+                        Bạn chưa nhập số điện thoại<br>
+                    </div>
+
+                    <div class="row mt-20">
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel">
+                                    <header class="panel-heading">
+                                        <h3 style="text-align: center; font-weight: bold">Danh sách khách hàng</h3>
+                                    </header>
+                                    <form method="get">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+
+                                                <th>ID</th>
+                                                <th>Tên người dùng</th>
+                                                <th>Email</th>
+                                                <th>Số điện thoại</th>
+                                                <th>Tình trạng</th>
+                                                <th>Thao tác</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <tr th:each="list : ${listUser}">
+
+                                                <td th:text="${list.id}"></td>
+                                                <td th:text="${list.name}"></td>
+                                                <td th:text="${list.email}"></td>
+                                                <td th:text="${list.phone_number}"></td>
+                                                <td th:text="${list.active == 1? 'Đã kích hoạt' : 'Chưa kích hoạt'}">
+                                                </td>
+                                                <td>
+
+                                                    <!--<a-->
+                                                    <!--th:href="@{'/admin/getuser/' + ${list.id}}"-->
+                                                    <!--class="btn btn-success btn-edit" data-toggle="modal"-->
+                                                    <!--data-target="#myModal1"><i class="fa fa-eye"></i>-->
+                                                    <!--</a>-->
+                                                    <button type="button" class="btn btn-success"
+                                                            th:onclick="'javascript:openReservationModal(' + ${list.id}+');'">
+                                                        <span class="glyphicon glyphicon-search"
+                                                              aria-hidden="true"></span>
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-danger btn-delete"
+                                                            data-toggle="modal" data-target="#myModal2"><i
+                                                            class="fa fa-pencil-square-o "></i>
+                                                    </button>
+                                                    <button class="btn btn-info" type="button" data-toggle="modal"
+                                                            data-target="#myModal">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
+
+                                </section>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+    <script th:inline="javascript" type="text/javascript">
+
+        function openReservationModal(id) {
+            $.ajax({
+                url: "/admin/getuser/" + id,
+                success: function (data) {
+                    // alert(data.name)
+                    $("#small1").text('ID: ' + data.id);
+                    $("#name123").val(data.name);
+                    $("#email123").val(data.email);
+                    $("#phone_number123").val(data.phone_number);
+                    $("#password123").val(data.password);
+                    if (data.active == 0) {
+                        $("#radio1").attr('checked', true);
+                    } else {
+                        $("#radio2").attr('checked', true);
+                    }
+                    $("#textarea123").val(data.address);
+                    $("#myModal1").modal("show");
+                }
+            });
+
+        }
+    </script>
+
+
+    <div class="modal fade" id="myModal1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">XEM THÔNG TIN KHÁCH HÀNG</h4>
+
+                    <small id="small1"></small>
+                </div>
+                <div class="modal-body">
+
+                    <form method="post" action="http://localhost/a/CameraGiamSat/admin/danhsachUser/29"
+                          data-parsley-validate="" class="form-horizontal form-label-left">
+                        <input type="hidden" name="_token" value="UYNv18WwjBpijBzo00BfmqY6nbYVi0xgor3MtTH1">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Họ tên<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" readonly="" id="name123" name="name" placeholder="Nhập tên đăng nhập"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ Email<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" readonly="" id="email123" name="email"
+
+                                       placeholder="Nhập email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Mật khẩu<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" readonly=""
+                                       id="password123"
+                                       name="password" placeholder="Nhập mật khẩu" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Số điện thoại<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" name="phone_number" readonly="" id="phone_number123"
+                                       placeholder="Nhập số điện thoại" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tình trạng<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="radio1" type="radio" name="active" value="0">Chưa kích hoạt<br>
+                                <input id="radio2" type="radio" name="active" value="1">Đã kích hoạt<br>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Địa chỉ<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="textarea123" class="form-control" readonly="readonly">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal2" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">KÍCH HOẠT TÀI KHOẢN</h4>
+                    <small>ID:29</small>
+                </div>
+                <div class="modal-body">
+
+                    <form method="post" action="http://localhost/a/CameraGiamSat/admin/danhsachUser/29"
+                          data-parsley-validate="" class="form-horizontal form-label-left">
+                        <input type="hidden" name="_token" value="UYNv18WwjBpijBzo00BfmqY6nbYVi0xgor3MtTH1">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Họ tên<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" readonly="" name="name" value="ádad" placeholder="Nhập tên đăng nhập"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ Email<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" readonly="" name="email" value="14130146@st.hcmuaf.edu.vn"
+                                       placeholder="Nhập email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Mật khẩu<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" readonly=""
+                                       value="$2a$10$OqcY8C9UgQVUq.GmOXKOXOrvF/INjgh70qJO5a7GCyttjbmBevZOO"
+                                       name="password" placeholder="Nhập mật khẩu" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Số điện thoại<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" name="phone_number" readonly="" value="0123456789"
+                                       placeholder="Nhập số điện thoại" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tình trạng<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="radio" name="active" value="0">Chưa kích hoạt<br>
+                                <input type="radio" name="active" value="1" checked="">Đã kích hoạt<br>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Ngày tạo<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="dext" readonly="" value="" placeholder="Nhập mật khẩu"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <center>
+
+                                    <button type="submit" class="btn btn-success" id="btn-add">Kích hoạt</button>
+                                </center>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">THÊM</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger">
+
+                        Bạn chưa nhập Email<br>
+                        Bạn chưa nhập mật khẩu<br>
+                        Bạn chưa nhập số điện thoại<br>
+                    </div>
+
+                    <form method="post" action="http://localhost/a/CameraGiamSat/admin/danhsachUser"
+                          data-parsley-validate="" class="form-horizontal form-label-left">
+                        <input type="hidden" name="_token" value="UYNv18WwjBpijBzo00BfmqY6nbYVi0xgor3MtTH1">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Họ tên<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="name" placeholder="Nhập tên đăng nhập" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ Email<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" name="email" placeholder="Nhập email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Mật khẩu<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" name="password" placeholder="Nhập mật khẩu" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nhập lại mật
+                                khẩu<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" name="password2" placeholder="Nhập mật khẩu"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Số điện thoại<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" name="phone_number" placeholder="Nhập số điện thoại"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tình trạng<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="radio" name="active1" value="0">Chưa kích hoạt<br>
+                                <input type="radio" name="active1" value="1" checked="">Đã kích hoạt<br>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <center>
+                                    <button type="submit" class="btn btn-info" id="btn-add" href=""><span
+                                            class="glyphicon glyphicon-plus"></span>Thêm
+                                    </button>
+                                    <a type="reset" class="btn btn-success" id="btn-add"><i class="fa fa-refresh"
+                                                                                            aria-hidden="true">Nhập
+                                        lại</i></a>
+                                </center>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--bottom-->
+    <th:block th:replace="admin/layout/bottom::bottom"></th:block>
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+</body>
+</html>

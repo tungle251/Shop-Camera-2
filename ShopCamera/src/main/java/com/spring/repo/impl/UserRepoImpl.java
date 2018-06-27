@@ -19,55 +19,60 @@ import com.spring.repo.UserRepo;
 @Repository
 @Transactional
 public class UserRepoImpl implements UserRepo {
-	@Autowired
-	private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	@Override
-	public int insert(Users users) {
-		Session session = sessionFactory.openSession();
-		session.save(users);
-		return users.getId();
-	}
+    @Override
+    public int insert(Users users) {
+        Session session = sessionFactory.openSession();
+        session.save(users);
+        return users.getId();
+    }
 
-	@Override
-	public Optional<Users> findByMail(String email) {
-		Session session = sessionFactory.openSession();
-		String sql = "select u.id, u.name, u.email, u.password, u.phone_number, u.address, u.id_role, u.active from users u where u.email = :email";
-		Query<Users> query = session.createNativeQuery(sql, Users.class);
-		query.setParameter("email", email);
-		return query.getResultList().stream().findFirst();
-	}
+    public List<Users> getListUser() {
+        Session session = this.sessionFactory.openSession();
+        return session.createQuery("From Users", Users.class).getResultList();
+    }
 
-	@Override
-	public String roleName(int idUser) {
+    @Override
+    public Optional<Users> findByMail(String email) {
+        Session session = sessionFactory.openSession();
+        String sql = "select u.id, u.name, u.email, u.password, u.phone_number, u.address, u.id_role, u.active from users u where u.email = :email";
+        Query<Users> query = session.createNativeQuery(sql, Users.class);
+        query.setParameter("email", email);
+        return query.getResultList().stream().findFirst();
+    }
 
-		Session session = sessionFactory.openSession();
-		String sql = "select r.id, r.name from role_detail r where r.id =:idUser ";
-		Query<RoleDetail> query = session.createNativeQuery(sql);
-		query.setParameter(idUser, idUser);
-		return query.getSingleResult().getName();
-	}
+    @Override
+    public String roleName(int idUser) {
 
-	public List<RoleDetail> getRole() {
-		Session session = sessionFactory.openSession();
-		List<RoleDetail> r = session.createQuery("From Role_detail").getResultList();
-		return r;
-	}
+        Session session = sessionFactory.openSession();
+        String sql = "select r.id, r.name from role_detail r where r.id =:idUser ";
+        Query<RoleDetail> query = session.createNativeQuery(sql);
+        query.setParameter(idUser, idUser);
+        return query.getSingleResult().getName();
+    }
 
-	@Override
-	public List<String> roleByUserId(int id) {
-		Session session = sessionFactory.openSession();
-		String sql = " select r.name from role_detail r where r.id =:id";
-		Query<String> query = session.createNativeQuery(sql);
-		query.setParameter("id", id);
-		List<String> r = query.getResultList();
-		return r;
-	}
+    public List<RoleDetail> getRole() {
+        Session session = sessionFactory.openSession();
+        List<RoleDetail> r = session.createQuery("From Role_detail").getResultList();
+        return r;
+    }
 
-	public Users getUserById(int id) {
-		Session session = this.sessionFactory.openSession();
-		Users p = session.get(Users.class, id);
-		return p;
-	}
+    @Override
+    public List<String> roleByUserId(int id) {
+        Session session = sessionFactory.openSession();
+        String sql = " select r.name from role_detail r where r.id =:id";
+        Query<String> query = session.createNativeQuery(sql);
+        query.setParameter("id", id);
+        List<String> r = query.getResultList();
+        return r;
+    }
+
+    public Users getUserById(int id) {
+        Session session = this.sessionFactory.openSession();
+        Users p = session.get(Users.class, id);
+        return p;
+    }
 
 }

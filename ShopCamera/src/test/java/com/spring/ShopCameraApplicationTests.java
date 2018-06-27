@@ -102,7 +102,8 @@ public class ShopCameraApplicationTests {
         // System.err.println(list2.next()[1] instanceof Integer);
         // }
 
-        System.err.println(newsRepo.findNewsDescriptionById(1).getContent());
+
+        System.err.println(userRepoImpl.getListUser());
 
     }
 
