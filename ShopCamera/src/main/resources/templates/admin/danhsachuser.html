@@ -33,25 +33,21 @@
                         <ol class="breadcrumb">
                             <li><i class="fa fa-home"></i>Trang chủ</li>
                             <li>Tài khoản</li>
-
                         </ol>
                     </div>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger">
-
-                        Bạn chưa nhập Email<br>
-                        Bạn chưa nhập mật khẩu<br>
-                        Bạn chưa nhập số điện thoại<br>
-                    </div>
-
+                    <th:block th:if="${attribute != null}">
+                        <div class="alert alert-success">
+                            Cập nhật thành công!<br>
+                        </div>
+                    </th:block>
                     <div class="row mt-20">
-                        <hr>
                         <div class="row">
                             <div class="col-sm-12">
                                 <section class="panel">
-                                    <header class="panel-heading">
-                                        <h3 style="text-align: center; font-weight: bold">Danh sách khách hàng</h3>
+                                    <header class="panel-heading" style="text-align: center">
+                                        <h3 style="font-weight: bold">Danh sách khách hàng</h3>
                                     </header>
                                     <form method="get">
                                         <table class="table">
@@ -62,6 +58,7 @@
                                                 <th>Tên người dùng</th>
                                                 <th>Email</th>
                                                 <th>Số điện thoại</th>
+                                                <th>Chức vụ</th>
                                                 <th>Tình trạng</th>
                                                 <th>Thao tác</th>
                                             </tr>
@@ -74,25 +71,22 @@
                                                 <td th:text="${list.name}"></td>
                                                 <td th:text="${list.email}"></td>
                                                 <td th:text="${list.phone_number}"></td>
+                                                <td th:text="${list.id_role == 1 ? 'Khách hàng' : 'Admin'}"></td>
                                                 <td th:text="${list.active == 1? 'Đã kích hoạt' : 'Chưa kích hoạt'}">
                                                 </td>
                                                 <td>
 
-                                                    <!--<a-->
-                                                    <!--th:href="@{'/admin/getuser/' + ${list.id}}"-->
-                                                    <!--class="btn btn-success btn-edit" data-toggle="modal"-->
-                                                    <!--data-target="#myModal1"><i class="fa fa-eye"></i>-->
-                                                    <!--</a>-->
+
                                                     <button type="button" class="btn btn-success"
                                                             th:onclick="'javascript:openReservationModal(' + ${list.id}+');'">
                                                         <span class="glyphicon glyphicon-search"
                                                               aria-hidden="true"></span>
                                                     </button>
 
-                                                    <button type="button" class="btn btn-danger btn-delete"
-                                                            data-toggle="modal" data-target="#myModal2"><i
-                                                            class="fa fa-pencil-square-o "></i>
-                                                    </button>
+                                                    <!--<button type="button" class="btn btn-danger btn-delete"-->
+                                                    <!--data-toggle="modal" data-target="#myModal2"><i-->
+                                                    <!--class="fa fa-pencil-square-o "></i>-->
+                                                    <!--</button>-->
                                                     <button class="btn btn-info" type="button" data-toggle="modal"
                                                             data-target="#myModal">
                                                         <i class="fa fa-plus"></i>
@@ -116,6 +110,15 @@
         </div>
 
     </div>
+    <script>
+        // $('div.alert').not('.alert-success').delay(3000).fadeOut(350);
+        $(function () {
+
+            $(".alert").delay(2000).fadeOut(350);
+
+        });
+    </script>
+
     <script th:inline="javascript" type="text/javascript">
 
         function openReservationModal(id) {
@@ -133,7 +136,14 @@
                     } else {
                         $("#radio2").attr('checked', true);
                     }
+                    if (data.id_role == 1) {
+                        $("#radio3").attr('checked', true);
+                    } else {
+                        $("#radio4").attr('checked', true);
+                    }
+
                     $("#textarea123").val(data.address);
+                    $("#id123").val(data.id);
                     $("#myModal1").modal("show");
                 }
             });
@@ -154,10 +164,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <form method="post" action="http://localhost/a/CameraGiamSat/admin/danhsachUser/29"
+                    <form method="post" th:action="@{/admin/update-user}"
                           data-parsley-validate="" class="form-horizontal form-label-left">
-                        <input type="hidden" name="_token" value="UYNv18WwjBpijBzo00BfmqY6nbYVi0xgor3MtTH1">
-
+                        <input type="hidden" name="id" id="id123">
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Họ tên<span
                                     class="required">*</span>
@@ -198,6 +207,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Chức vụ<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="radio3" type="radio" name="role" value="1">Khách hàng<br>
+                                <input id="radio4" type="radio" name="role" value="2">Admin<br>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tình trạng<span
                                     class="required">*</span>
                             </label>
@@ -214,100 +232,12 @@
                                 <input id="textarea123" class="form-control" readonly="readonly">
                             </div>
                         </div>
-
+                        <center>
+                            <button type="submit" class="btn btn-success" id="btn-update">Cập nhật</button>
+                        </center>
                     </form>
+
                 </div>
-
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="myModal2" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title">KÍCH HOẠT TÀI KHOẢN</h4>
-                    <small>ID:29</small>
-                </div>
-                <div class="modal-body">
-
-                    <form method="post" action="http://localhost/a/CameraGiamSat/admin/danhsachUser/29"
-                          data-parsley-validate="" class="form-horizontal form-label-left">
-                        <input type="hidden" name="_token" value="UYNv18WwjBpijBzo00BfmqY6nbYVi0xgor3MtTH1">
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Họ tên<span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" readonly="" name="name" value="ádad" placeholder="Nhập tên đăng nhập"
-                                       class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ Email<span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="email" readonly="" name="email" value="14130146@st.hcmuaf.edu.vn"
-                                       placeholder="Nhập email" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Mật khẩu<span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="password" readonly=""
-                                       value="$2a$10$OqcY8C9UgQVUq.GmOXKOXOrvF/INjgh70qJO5a7GCyttjbmBevZOO"
-                                       name="password" placeholder="Nhập mật khẩu" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Số điện thoại<span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" name="phone_number" readonly="" value="0123456789"
-                                       placeholder="Nhập số điện thoại" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tình trạng<span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="radio" name="active" value="0">Chưa kích hoạt<br>
-                                <input type="radio" name="active" value="1" checked="">Đã kích hoạt<br>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Ngày tạo<span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="dext" readonly="" value="" placeholder="Nhập mật khẩu"
-                                       class="form-control">
-                            </div>
-                        </div>
-                        <div class="ln_solid"></div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <center>
-
-                                    <button type="submit" class="btn btn-success" id="btn-add">Kích hoạt</button>
-                                </center>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
@@ -325,14 +255,11 @@
                     <h4 class="modal-title">THÊM</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger">
+                    <!--<div class="alert alert-success">-->
+                    <!--Cập nhật thành công!-->
+                    <!--</div>-->
 
-                        Bạn chưa nhập Email<br>
-                        Bạn chưa nhập mật khẩu<br>
-                        Bạn chưa nhập số điện thoại<br>
-                    </div>
-
-                    <form method="post" action="http://localhost/a/CameraGiamSat/admin/danhsachUser"
+                    <form method="post" action=""
                           data-parsley-validate="" class="form-horizontal form-label-left">
                         <input type="hidden" name="_token" value="UYNv18WwjBpijBzo00BfmqY6nbYVi0xgor3MtTH1">
                         <div class="form-group">

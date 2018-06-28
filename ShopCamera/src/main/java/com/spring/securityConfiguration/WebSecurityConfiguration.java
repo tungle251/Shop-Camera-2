@@ -18,38 +18,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-	@Autowired
-	private UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
-	}
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/admin/login").permitAll().antMatchers(HttpMethod.GET, "/**/*.*")
-				.permitAll().antMatchers("/CameraGiamSat/**").permitAll().antMatchers("/admin/**").hasRole("ADMIN")
-				.anyRequest().authenticated()
-				// .antMatchers("/admin/index").authenticated()
-				.antMatchers("/admin/**").authenticated().and().formLogin().loginProcessingUrl("/admin/login")
-				.loginPage("/admin/login").usernameParameter("email").passwordParameter("password")
-				.failureUrl("/admin/login?error").defaultSuccessUrl("/admin/index").and().logout() // logout
-																									// configuration
-				.logoutUrl("/logout").logoutSuccessUrl("/admin/login");
-		http.csrf().disable();
+        http.authorizeRequests().antMatchers("/admin/login").permitAll().antMatchers(HttpMethod.GET, "/**/*.*")
+                .permitAll().antMatchers("/CameraGiamSat/**").permitAll().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .anyRequest().authenticated()
+                // .antMatchers("/admin/index").authenticated()
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')").anyRequest().authenticated().and().formLogin().loginProcessingUrl("/admin/login")
+                .loginPage("/admin/login").usernameParameter("email").passwordParameter("password")
+                .failureUrl("/admin/login?error").defaultSuccessUrl("/admin/index").and().logout() // logout
+                // configuration
+                .logoutUrl("/logout").logoutSuccessUrl("/admin/login");
+        http.csrf().disable();
 
-	}
+    }
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/**/*.*");
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/**/*.*");
 
-	}
+    }
 }

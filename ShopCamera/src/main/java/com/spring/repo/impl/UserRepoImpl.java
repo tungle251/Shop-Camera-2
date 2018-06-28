@@ -75,4 +75,11 @@ public class UserRepoImpl implements UserRepo {
         return p;
     }
 
+    public Users updateUser(Users users) {
+        Session session = this.sessionFactory.openSession();
+        session.getTransaction().begin();
+        session.update(users);
+        session.getTransaction().commit();
+        return users;
+    }
 }

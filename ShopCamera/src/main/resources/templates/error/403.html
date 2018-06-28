@@ -1,9 +1,11 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 
 </head>
 <body>
-	You have not permission to access this page. Please contact you administrator or login again 
+<h1>Something went wrong!</h1>
+You have not permission to access this page. Please contact you administrator or <a th:href="@{/admin/login}">login
+    again</a>!
 
 </body>
 </html>
